@@ -1,2 +1,1 @@
-# rmi
-RMI – Transfert de données
+# RMI – Transfert de données
