@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 
 /**
- * Represente un message transmit par les sites entre eux.
+ * Represente un message transmit par les sites.
  */
 public class Message implements Serializable {
 

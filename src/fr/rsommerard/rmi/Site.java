@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
  * Interface RMI pour les sites.
  */
 public interface Site extends Remote {
+	
     /**
      * @return Nom du site.
      * @throws RemoteException
@@ -46,7 +47,7 @@ public interface Site extends Remote {
     public void addMonitor(Monitor monitor) throws RemoteException;
 
     /**
-     * Permet d'initializer un nouveau message a propager.
+     * Permet d'initialiser un nouveau message a propager.
      *
      * @param content
      * @throws RemoteException

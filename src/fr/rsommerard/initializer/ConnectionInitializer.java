@@ -8,7 +8,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
- * Initialise les connexions entre sites.
+ * Initialise les connexions entre les sites.
  */
 public class ConnectionInitializer {
     public static void main(String[] args) throws RemoteException, NotBoundException {

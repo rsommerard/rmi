@@ -21,7 +21,7 @@ public class SiteImpl extends UnicastRemoteObject implements Site {
     private List<Site> connections;
     
     /**
-     * Messages recus
+     * Messages recus.
      */
     private List<Message> receivedMessages;
 
@@ -148,21 +148,5 @@ public class SiteImpl extends UnicastRemoteObject implements Site {
 		
 		this.connections.add(site);
 	}
-    
-    /*@Override
-    public boolean equals(Object obj){
-    	if(obj instanceof Site){
-    		Site site = (SiteImpl) obj;
 
-			try {
-				if(this.name.equals(site.getName())) {
-	        		return true;
-	        	}
-			} catch (RemoteException e) {
-				return false;
-			}
-    	}
-    	
-    	return false;
-    }*/
 }

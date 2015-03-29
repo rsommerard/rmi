@@ -9,7 +9,6 @@ import java.rmi.server.UnicastRemoteObject;
 public class MonitorImpl extends UnicastRemoteObject implements Monitor {
 
 	/**
-     * @param name
      * @throws RemoteException
      */
     public MonitorImpl() throws RemoteException {

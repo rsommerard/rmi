@@ -44,4 +44,5 @@ public class MessageTest {
 		message.setSender(otherSite);
 		assertEquals(otherSite, message.getSender());
 	}
+	
 }
