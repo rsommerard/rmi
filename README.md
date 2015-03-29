@@ -8,6 +8,10 @@ RMI permet de partager des ressources (objets) entre plusieurs machines virtuell
 
 # Architecture
 
+# UML
+
+[diag-uml]: diag-uml.jpeg "Diagramme UML"
+
 # Scripts
 
 | Nom | Description |
