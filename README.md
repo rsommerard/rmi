@@ -59,7 +59,7 @@ public static void main(String[] args) throws RemoteException, NotBoundException
     }
   }).start();
 }
-̀```
+```
 
 - Ressource synchronisé lors de la réception de plusieurs messages en même temps sur le même noeud.
 
