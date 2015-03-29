@@ -35,6 +35,32 @@ RMI permet de partager des ressources (objets) entre plusieurs machines virtuell
 
 # Code sample
 
+- Initialisation d'un site. On récupère le moniteur qui est déjà mappé par RMI. Un thread est créé pour que l'objet "site" persiste.
+
+```java
+// SiteInitializer.java
+public static void main(String[] args) throws RemoteException, NotBoundException {
+  Registry registry = LocateRegistry.getRegistry();
+  Monitor monitor = (Monitor) registry.lookup("Monitor");
+  Site site = new SiteImpl(args[0], monitor);
+
+  registry.rebind(args[0], site);
+  System.out.println("Site " + args[0] + " created and running ...");
+
+  new Thread(new Runnable() {
+    @Override
+    public void run() {
+      try {
+        Thread.currentThread();
+        Thread.sleep(999999999);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }).start();
+}
+̀```
+
 - Ressource synchronisé lors de la réception de plusieurs messages en même temps sur le même noeud.
 
 ```java
@@ -81,6 +107,20 @@ public void transferMessage(final Message message) throws RemoteException {
       }
     }).start();
   }
+}
+```
+
+- Notification au moniteur.
+
+```java
+// SiteImpl.java
+@Override
+public void notifyMonitor(String content) throws RemoteException {
+    Message message = new Message(content, this);
+
+    if(this.monitor != null) {
+        this.monitor.notify(message);
+    }
 }
 ```
 
