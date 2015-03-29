@@ -17,8 +17,8 @@ public class ConnectionInitializer {
         Site site1 = (Site) registry.lookup(args[0]);
         Site site2 = (Site) registry.lookup(args[1]);
 
-        site1.addSon(site2);
-        site2.addFather(site1);
+        site1.addConnection(site2);
+        site2.addConnection(site1);
 
         System.out.println("Connection established with site " + args[0] + " and site " + args[1] + ".");
     }

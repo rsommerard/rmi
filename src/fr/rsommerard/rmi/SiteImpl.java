@@ -16,14 +16,14 @@ public class SiteImpl extends UnicastRemoteObject implements Site {
     private String name;
 
     /**
-     * Fils du site.
+     * Connexions du site.
      */
-    private List<Site> sons;
+    private List<Site> connections;
     
     /**
-     * Pere du site.
+     * Messages recus
      */
-    private Site father;
+    private List<Message> receivedMessages;
 
     /**
      * Moniteur du site.
@@ -37,14 +37,16 @@ public class SiteImpl extends UnicastRemoteObject implements Site {
     public SiteImpl(String name) throws RemoteException {
         super();
         this.name = name;
-        this.sons = new ArrayList<Site>();
+        this.connections = new ArrayList<Site>();
+        this.receivedMessages = new ArrayList<Message>();
     }
 
     public SiteImpl(String name, Monitor monitor) throws RemoteException {
         super();
         this.name = name;
-        this.sons = new ArrayList<Site>();
+        this.connections = new ArrayList<Site>();
         this.monitor = monitor;
+        this.receivedMessages = new ArrayList<Message>();
     }
 
     /**
@@ -60,11 +62,25 @@ public class SiteImpl extends UnicastRemoteObject implements Site {
      */
     @Override
     public void transferMessage(final Message message) throws RemoteException {
-    	this.notifyMonitor("Message receved from site " + message.getSender().getName() + ": " + message.getContent());
+    	this.notifyMonitor("Message received from site " + message.getSender().getName() + ": " + message.getContent());
+
+    	synchronized(this.receivedMessages) {
+    		if(this.receivedMessages.contains(message)) {
+    			return;
+        	}
+
+    		this.receivedMessages.add(message);
+    	}
+    	
+    	Site sender = message.getSender();
     	
         message.setSender(this);
 
-        for(final Site site : this.sons) {
+        for(final Site site : this.connections) {
+        	if(site.equals(sender)) {
+        		continue;
+        	}
+        	
             new Thread(new Runnable() {
             	@Override
                 public void run() {
@@ -107,7 +123,7 @@ public class SiteImpl extends UnicastRemoteObject implements Site {
 
         final Message message = new Message(content, this);
 
-        for(final Site site : this.sons) {
+        for(final Site site : this.connections) {
             new Thread(new Runnable() {
             	@Override
                 public void run() {
@@ -122,31 +138,18 @@ public class SiteImpl extends UnicastRemoteObject implements Site {
     }
 
     /**
-     * @see Site#addSon(Site)
+     * @see Site#addConnection(Site)
      */
 	@Override
-	public void addSon(Site site) throws RemoteException {
-		if(this.sons.contains(site)) {
+	public void addConnection(Site site) throws RemoteException {
+		if(this.connections.contains(site)) {
 			return;
 		}
 		
-		this.sons.add(site);
+		this.connections.add(site);
 	}
-
-	/**
-     * @see Site#addFather(Site)
-     */
-	@Override
-	public void addFather(Site site) throws RemoteException {
-		this.father = site;
-	}
-	
-    /*@Override
-    public int hashCode() {
-        return 1;
-    }
     
-    @Override
+    /*@Override
     public boolean equals(Object obj){
     	if(obj instanceof Site){
     		Site site = (SiteImpl) obj;

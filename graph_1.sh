@@ -35,5 +35,7 @@ java fr.rsommerard.initializer.ConnectionInitializer 2 4
 sleep 0.2
 java fr.rsommerard.initializer.ConnectionInitializer 5 6
 sleep 0.2
+java fr.rsommerard.initializer.ConnectionInitializer 4 6
+sleep 0.2
 
 java fr.rsommerard.initializer.MessageInitializer 1 "This is a test !"

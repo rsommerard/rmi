@@ -14,20 +14,12 @@ public interface Site extends Remote {
     public String getName() throws RemoteException;
 
     /**
-     * Ajoute un fils au site.
+     * Ajoute une connexion au site.
      *
      * @param site
      * @throws RemoteException
      */
-    public void addSon(Site site) throws RemoteException;
-    
-    /**
-     * Ajoute un pere au site.
-     *
-     * @param site
-     * @throws RemoteException
-     */
-    public void addFather(Site site) throws RemoteException;
+    public void addConnection(Site site) throws RemoteException;
 
     /**
      * Transfert le message aux sites fils.

@@ -1,6 +1,7 @@
 package fr.rsommerard.rmi;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 
 /**
  * Represente un message transmit par les sites entre eux.
@@ -47,27 +48,20 @@ public class Message implements Serializable {
         return this.sender;
     }
     
-    /*@Override
+    @Override
     public int hashCode() {
-        return 1;
+    	return 1;
     }
     
     @Override
     public boolean equals(Object obj){
     	if(obj instanceof Message){
     		Message message = (Message) obj;
-
-			try {
-				System.out.println("Message: " + this.sender.getName() + " == " + message.getSender().getName());
-				
-				if(this.getContent().equals(message.getContent()) && this.sender.getName().equals(message.getSender().getName())) {
-	        		return true;
-	        	}
-			} catch (RemoteException e) {
-				return false;
-			}
+			if(this.getContent().equals(message.getContent())) {
+		        return true;
+		    }
     	}
     	
     	return false;
-    }*/
+    }
 }
